@@ -1,7 +1,5 @@
-N,M = int(input()),input()[::-1]
-answer = 0
+N,M = int(input()),list(map(int,list(input())))
 for i in range(3):
-    temp = N*int(M[i])
-    print(temp)
-    answer += temp*10**i
-print(answer)
+    M[2-i] = N*M[2-i]
+    print(M[2-i])
+print(M[0]*100+M[1]*10+M[2])
