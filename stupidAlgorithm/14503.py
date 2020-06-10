@@ -1,14 +1,3 @@
-def clean(r,c):
-    global answer
-    room[r][c] = 2
-    answer += 1
-    return
-
-def move(nr,nc):
-    global r,c
-    r,c = nr,nc
-    return
-
 import sys
 input = sys.stdin.readline
 n,m = map(int,input().split())
@@ -18,21 +7,21 @@ answer = 0
 check_r = [0, -1, 0, 1]
 check_c = [-1, 0, 1, 0]
 
-clean(r,c)
+room[r][c],answer = 2, answer+1
 while True:
     for i in range(4):
-        nr,nc = r + check_r[d],c + check_c[d]
+        left_r, left_c = r + check_r[d], c + check_c[d]
         d = (d + 3) % 4
-        if room[nr][nc] == 0:
-            move(nr,nc)
-            clean(r,c)
+        if room[left_r][left_c] == 0:
+            r,c = left_r,left_c
+            room[r][c],answer = 2, answer+1
             flag = 1
-            break;
+            break
         else: flag = 0
 
     if flag == 0:
-        nr,nc = r + check_r[(d + 3) % 4],c + check_c[(d + 3) % 4]
-        if room[nr][nc] == 1: break
-        else: move(nr,nc)
+        back_r, back_c = r + check_r[(d + 3) % 4], c + check_c[(d + 3) % 4]
+        if room[back_r][back_c] == 1: break
+        else: r,c = back_r,back_c
 
 print(answer)
