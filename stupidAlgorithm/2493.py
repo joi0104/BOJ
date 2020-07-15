@@ -8,4 +8,4 @@ for i in range(1,n+1):
             dp.append(idx)
             break
         idx = dp[idx]
-print(*dp[1:])
+print (*dp[1:])
