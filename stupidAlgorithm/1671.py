@@ -12,6 +12,7 @@ def dfs(i):
             return 1
     return 0
 
+
 n = int(input())
 shark = [list(map(int,input().split())) for _ in range(n)]
 shark_eat = [[] for _ in range(n)]
