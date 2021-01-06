@@ -1,42 +1,38 @@
-def grouping(n):
-    tmp = []
+def grouping(N):
     flag = False
-    if len(n) == 5 : return ''.join(n)
-    for operator in ['*','/','+','-']:
-        for i in range(len(n)):
-            tmp.append(n[i])
-            if n[i] == operator:
-                flag = True
-                continue
+    for operator in [['*', '/'], ['+', '-']]:
+        tmp = []
+        for n in N:
+            tmp.append(n)
             if flag:
                 a, b, c = tmp.pop(), tmp.pop(), tmp.pop()
-                tmp.append('('+c+b+a+')')
+                tmp.append('(' + c + b + a + ')')
                 flag = False
-    return tmp
+            if n in operator:
+                flag = True
+        N = [tmp[1]] if len(tmp) == 3 else tmp
+    return ''.join(N)
 
-n = ['(']+list(input())+[')']
+N = ['('] + list(input()) + [')']
 stack = []
-answer = ''
-for i in range(len(n)):
-        stack.append(n[i])
-        if n[i] == ')':
-            tmp = stack.pop()
-            tmp2 = [tmp]
-            while tmp != '(':
-                tmp = stack.pop()
-                tmp2.append(tmp)
-            stack += grouping(list(reversed(tmp2)))
-    print(stack)
-    n, stack = stack, []
 
-n = ''.join(n)
+for n in N:
+    stack.append(n)
+    if n == ')':
+        tmp = [stack.pop()]
+        while tmp[-1] != '(':
+            tmp.append(stack.pop())
+        stack.append(grouping(list(reversed(tmp))))
 
-for i in range(len(n)):
-    stack.append(n[i])
-    if n[i] == ')':
+N, stack = ''.join(stack), []
+
+for n in N:
+    stack.append(n)
+    if n == ')':
         stack.pop()
         right, root, left = stack.pop(), stack.pop(), stack.pop()
         stack.pop()
-        stack.append(left+right+root)
-print(stack[0])
+        stack.append(left + right + root)
+print(''.join(stack))
+
 
