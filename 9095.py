@@ -1,14 +1,4 @@
-def split_n(m,tmp):
-    global answer
-    if m == 0 :
-        answer+=1
-        return
-    if m >= 3: split_n(m-3,tmp+[3])
-    if m >= 2: split_n(m-2,tmp+[2])
-    if m >= 1: split_n(m-1,tmp+[1])
-
-for _ in range(int(input())):
-    n = int(input())
-    answer = 0
-    split_n(n,[])
-    print(answer)
+test = [int(input()) for _ in range(int(input()))]
+dp = [0,1,2,4]
+for i in range(4,max(test)+1): dp.append(dp[i-1]+dp[i-2]+dp[i-3])
+for i in test: print(dp[i])
