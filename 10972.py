@@ -1,18 +1,16 @@
-def down(m):
-    for i in range(len(m)):
-        if i == len(m)-1: break
-        if m[i] < m[i+1] : return False
-    return True
+import sys
+input = sys.stdin.readline
+print = sys.stdout.write
 
 n = int(input())
-m = list(map(int,input().split()))
-if m == sorted(m,reverse=True): print(-1)
-
-else:
-    idx = 0
-    for i in range(len(m)):
-        if i == len(m)-1: break
-        idx = i
-        if down(m[i+1:]) : break
-    m[idx], m[-1] = m[-1], m[idx]
-    for i in m[:idx+1]+sorted(m[idx+1:]): print(i, end=' ')
+a = list(map(int, input().split()))
+answer = []
+for i in range(n-1, 0, -1):
+    if a[i] > a[i-1]:
+        for j in range(n-1, i-1, -1):
+            if a[i-1] < a[j]:
+                a[i-1], a[j] = a[j], a[i-1]
+                break
+        answer = a[:i] + a[n-1:i-1:-1]
+        break
+print(' '.join(map(str, answer)) if answer else '-1')
